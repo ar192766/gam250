@@ -4,27 +4,16 @@ using UnityEngine;
 
 public class AIManager : MonoBehaviour
 {
-    public GameObject[] farObjects;
-    public GameObject[] middleObjects;
-    public GameObject[] closeObjects;
+    public static NavMeshAgent agent;
+
+    public static bool inCover;
 
     void Start()
     {
-
+        agent = GetComponent<NavMeshAgent>();
     }
-
 
     void Update()
-    {
-
-    }
-
-    void ChangeAIBehaviour()
-    {
-
-    }
-
-    void RoomLayout()
     {
 
     }
