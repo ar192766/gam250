@@ -6,10 +6,12 @@ using UnityEditor;
 
 public class SimpleAI : EditorWindow
 {
-    public bool wonder;
-    public bool chasePlayer;
-    public bool playerDection;
-    public bool aiHealth;
+    public static bool wonder;
+    public static bool chasePlayer;
+    public static bool playerDection;
+    public static bool aiHealth;
+
+    public static bool attachComponents;
 
     public static float amountOfHealth;
     
@@ -17,18 +19,23 @@ public class SimpleAI : EditorWindow
     public GameObject pathObject;
 
     [MenuItem("Tools/SimpleAI")]
-	 public static void ShowAIWindow()
+	public static void ShowAIWindow()
     {
         GetWindow<SimpleAI>("SimpleAI");
     }
 
     void Update()
     {
-
+        if (attachComponents == true)
+        {
+            AddComponents();
+            attachComponents = false;
+        }
     }
 
     void OnGUI()
     {
+
         GUILayout.Label("Simple AI", EditorStyles.boldLabel);
 
         aiObject = (GameObject)EditorGUILayout.ObjectField("AI Object", aiObject, typeof(Object), true);
@@ -65,8 +72,8 @@ public class SimpleAI : EditorWindow
         EditorGUILayout.Space();
 
         pathObject = (GameObject)EditorGUILayout.ObjectField("AI Path Object", pathObject, typeof(object), true);
-        pathObject.GetComponent<Collider>().enabled = true;
-        pathObject.gameObject.tag = "Path";
+        //pathObject.GetComponent<Collider>().enabled = true;
+        //pathObject.gameObject.tag = "Path";
 
         EditorGUILayout.Space();
 
@@ -86,6 +93,11 @@ public class SimpleAI : EditorWindow
     // Adds Navmeshagent, Rigidbody and scripts that have been selected
     void AddComponents()
     {
+        if(wonder == false & chasePlayer == false && playerDection == false && aiHealth == false && attachComponents == false)
+        {
+            ComponentAlert.Tester();
+        }
+
         Debug.Log(amountOfHealth);
 
         if (aiObject.GetComponent<PathManager>() == null)
@@ -123,6 +135,47 @@ public class SimpleAI : EditorWindow
         if (aiObject.GetComponent<Rigidbody>() == null)
         {
             aiObject.AddComponent<Rigidbody>();
+        }
+    }
+}
+
+public class ComponentAlert : EditorWindow
+{
+    static public void Tester()
+    { 
+        ComponentAlert window = ScriptableObject.CreateInstance<ComponentAlert>();
+        window.position = new Rect(Screen.width/ 0.4f, Screen.height/ 1.5f, 300, 200);
+        window.ShowPopup();
+    }
+
+    void OnGUI()
+    {
+        EditorGUILayout.LabelField("Component Alert", EditorStyles.wordWrappedLabel);
+
+        EditorGUILayout.Space();
+
+        EditorGUILayout.LabelField("No Behaviours where added to the AI", EditorStyles.boldLabel);
+
+        EditorGUILayout.Space();
+
+        EditorGUILayout.LabelField("Would you like to add some Components");
+
+        EditorGUILayout.Space();
+
+        SimpleAI.wonder = EditorGUILayout.Toggle("Wonder", SimpleAI.wonder);
+        SimpleAI.chasePlayer = EditorGUILayout.Toggle("Chase Player", SimpleAI.chasePlayer);
+        SimpleAI.playerDection = EditorGUILayout.Toggle("Player Detection", SimpleAI.playerDection);
+        SimpleAI.aiHealth = EditorGUILayout.Toggle("Health", SimpleAI.aiHealth);
+
+        if (SimpleAI.aiHealth == true)
+        {
+            SimpleAI.amountOfHealth = EditorGUILayout.FloatField("Amount of health", SimpleAI.amountOfHealth);
+        }
+
+        if (GUILayout.Button("Add Components"))
+        {
+            SimpleAI.attachComponents = true;
+            this.Close();
         }
     }
 }
