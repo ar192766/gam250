@@ -43,11 +43,8 @@ public class Wonder : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log("OK");
-
         if (other.tag == "Path")
         {
-            Debug.Log("Path Hit");
             lastRandomNumber = index;
             RandomDestination();
         }

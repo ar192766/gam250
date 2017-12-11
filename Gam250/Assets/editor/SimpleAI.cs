@@ -17,7 +17,7 @@ public class SimpleAI : EditorWindow
     public static float amountOfHealth;
     
     public GameObject aiObject;
-    public GameObject pathObject;
+    public  static GameObject pathObject;
 
     [MenuItem("Tools/SimpleAI")]
 	public static void ShowAIWindow()
@@ -46,7 +46,7 @@ public class SimpleAI : EditorWindow
 
         if (wonder == true)
         {
-            lookAround = EditorGUILayout.Toggle("Lookn Around", lookAround);
+            lookAround = EditorGUILayout.Toggle("Look Around", lookAround);
         }
 
         chasePlayer = EditorGUILayout.Toggle("Chase Player", chasePlayer);

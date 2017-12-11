@@ -5,25 +5,25 @@ using UnityEngine;
 public class PlayerDetection : MonoBehaviour
 {
     public float rayDistance;
+    Vector3 center;
+    float radius;
 
-    void Start ()
-    {
-		
-	}
-	
 	void Update ()
     {
+        Quaternion rotationRight = Quaternion.AngleAxis(30, transform.up);
+        Quaternion rotationLeft = Quaternion.AngleAxis(-30, transform.up);
+        
+
+        Vector3 rayR = rotationRight * transform.forward * rayDistance;
+        Vector3 rayL = rotationLeft * transform.forward * rayDistance;
+
+        Debug.DrawRay(transform.position, rayR, Color.red);
+        Debug.DrawRay(transform.position, rayL, Color.red);
+ 
+
         RaycastHit hit;
 
-        var rayrotate = transform.rotation.eulerAngles;
-        rayrotate.x = 0;
-        rayrotate.z = 0;
-        rayrotate.y = 0;
-
-        Vector3 fwd = transform.TransformDirection(Vector3.forward * rayDistance);
-        Debug.DrawRay(transform.position, fwd, Color.red);
-
-        if (Physics.Raycast(transform.position, fwd, out hit, rayDistance))
+        if (Physics.Raycast(transform.position, rayR, out hit, rayDistance) ||(Physics.Raycast(transform.position, rayL, out hit, rayDistance)))
         {
             if (hit.collider.tag == "Player")
             {
@@ -32,7 +32,5 @@ public class PlayerDetection : MonoBehaviour
                 Debug.Log("Player Hit");
             }
         }
-
-
     }
 }
