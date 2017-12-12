@@ -4,21 +4,17 @@ using UnityEngine;
 
 public class PathManager : MonoBehaviour
 {
-    public static bool iSWondering;
     public bool isWond;
     public bool isChasing;
 
-    public static bool isChasingPlayer;
-
     void Start()
     {
-        iSWondering = true;
+        isWond = true;
     }
 
     void Update()
-    {
-        isChasing = isChasingPlayer;
-        isWond = iSWondering;
+    { 
+        
     }
 
 }

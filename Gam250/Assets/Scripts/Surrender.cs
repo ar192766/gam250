@@ -1,11 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class Surrender : MonoBehaviour
 {
-    NavMeshAgent agent;
+    PathManager pathManager;
+
+    NavMeshHandler navHandler;
 
     Health getHealth;
     public int surrenderChance;
@@ -13,7 +14,9 @@ public class Surrender : MonoBehaviour
 	
 	void Start ()
     {
-        agent = GetComponent<NavMeshAgent>();
+        pathManager = GetComponent<PathManager>();
+
+        navHandler = GetComponent<NavMeshHandler>();
         getHealth = GetComponent<Health>();
 	}
 	
@@ -27,10 +30,10 @@ public class Surrender : MonoBehaviour
             if (surrenderChance < 3)
             {
                 Debug.Log("Surrender");
-                PathManager.iSWondering = false;
-                PathManager.isChasingPlayer = false;
+                pathManager.isWond = false;
+                pathManager.isChasing = false;
 
-                agent.destination = transform.position;
+                navHandler.agent.destination = transform.position;
             }
         }
 	}

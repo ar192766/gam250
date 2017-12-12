@@ -1,11 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class LookAround : MonoBehaviour
 {
-    NavMeshAgent agent;
+    PathManager pathManager;
+    NavMeshHandler navHandler;
 
     public int lookChance = 10;
     public float timeToLook = 40f;
@@ -16,7 +16,8 @@ public class LookAround : MonoBehaviour
 
 	void Start ()
     {
-        agent = GetComponent<NavMeshAgent>();
+        navHandler = GetComponent<NavMeshHandler>();
+        pathManager = GetComponent<PathManager>();
 	}
 	
 	void Update ()
@@ -27,13 +28,13 @@ public class LookAround : MonoBehaviour
         {
             lookChance = 10;
             timeToWonder = 5f;
-            agent.speed = 3.5f;
+            navHandler.agent.speed = 3.5f;
         }
 	}
 
     void LookChance()
     {
-        if (PathManager.isChasingPlayer == true)
+        if (pathManager.isChasing == true)
         {
             Debug.Log("AI is chasing player");
         }
@@ -48,8 +49,8 @@ public class LookAround : MonoBehaviour
 
             if (lookChance < 3 && canLook == true)
             {
-                agent.speed = 0;
-                agent.destination = transform.position;
+                navHandler.agent.speed = 0;
+                navHandler.agent.destination = transform.position;
                 transform.Rotate(Vector3.up, turnSpeed * Time.deltaTime);
 
                 timeToWonder -= 1f * Time.deltaTime;

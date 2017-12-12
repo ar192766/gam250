@@ -151,5 +151,10 @@ public class SimpleAI : EditorWindow
         {
             aiObject.AddComponent<Rigidbody>();
         }
+
+        if (aiObject.GetComponent<NavMeshHandler>() == null)
+        {
+            aiObject.GetComponent<NavMeshHandler>();
+        }
     }
 }

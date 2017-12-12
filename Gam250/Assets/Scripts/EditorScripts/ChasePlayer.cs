@@ -1,27 +1,27 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class ChasePlayer : MonoBehaviour
 {
+    PathManager pathManager;
+    NavMeshHandler navHandler;
+
     public GameObject player;
-    NavMeshAgent agent;
 
 	void Start ()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        agent = GetComponent<NavMeshAgent>();
+        navHandler = GetComponent<NavMeshHandler>();
+        pathManager = GetComponent<PathManager>();
 	}
 	
 	
 	void Update ()
     {
-       
-
-        if (PathManager.isChasingPlayer == true)
+        if (pathManager.isChasing == true)
         {
-            agent.destination = player.transform.position;
+            navHandler.agent.destination = player.transform.position;
         }
 	}
 }

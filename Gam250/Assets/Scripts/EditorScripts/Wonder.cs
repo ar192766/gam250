@@ -1,11 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class Wonder : MonoBehaviour
 {
-    NavMeshAgent agent;
+    PathManager pathManager;
+    NavMeshHandler navHandler;
 
     Rigidbody rig;
     public GameObject[] aiPaths;
@@ -15,7 +15,9 @@ public class Wonder : MonoBehaviour
 	
 	void Start ()
     {
-        agent = GetComponent<NavMeshAgent>();
+        pathManager = GetComponent<PathManager>();
+
+        navHandler = GetComponent<NavMeshHandler>();
 
         rig = GetComponent<Rigidbody>();
         aiPaths = GameObject.FindGameObjectsWithTag("Path");
@@ -29,9 +31,9 @@ public class Wonder : MonoBehaviour
 
 	void Update ()
     {
-        if (PathManager.iSWondering == true)
+        if (pathManager.isWond == true)
         {
-            agent.destination = currentPath.transform.position;
+            navHandler.agent.destination = currentPath.transform.position;
         }
 
         if (index == lastRandomNumber)

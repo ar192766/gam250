@@ -7,7 +7,8 @@ public class AISight : MonoBehaviour
     public bool PlayerInRange;
     public float rayLength;
     public GameObject player;
-    public Vector3 playerPosition;
+
+    public float rayangle;
 
     void Start()
     {
@@ -34,7 +35,7 @@ public class AISight : MonoBehaviour
         if (other.tag == "Player")
         {
             PlayerInRange = true;
-            Debug.Log("In");
+         
         }
     }
 
@@ -43,7 +44,7 @@ public class AISight : MonoBehaviour
         if (other.tag == "Player")
         {
             PlayerInRange = false;
-            Debug.Log("Out");
+         
         }
     }
 }
