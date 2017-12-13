@@ -10,7 +10,7 @@ public class SimpleAI : EditorWindow
     public static bool lookAround;
     public static bool chasePlayer;
     public static bool playerDection;
-    public static bool aiHealth;
+    public static bool healthManager;
 
     public static bool attachComponents;
 
@@ -18,6 +18,7 @@ public class SimpleAI : EditorWindow
     
     public GameObject aiObject;
     public  static GameObject pathObject;
+    public static GameObject createManager;
 
     [MenuItem("Tools/SimpleAI")]
 	public static void ShowAIWindow()
@@ -49,12 +50,17 @@ public class SimpleAI : EditorWindow
             lookAround = EditorGUILayout.Toggle("Look Around", lookAround);
         }
 
-        chasePlayer = EditorGUILayout.Toggle("Chase Player", chasePlayer);
         playerDection = EditorGUILayout.Toggle("Player Detection", playerDection);
-        aiHealth = EditorGUILayout.Toggle("Health", aiHealth);
+        if(playerDection == true)
+        {
+            chasePlayer = EditorGUILayout.Toggle("Chase Player", chasePlayer);
+        }
 
-            if (aiHealth == true)
+        healthManager = EditorGUILayout.Toggle("Health Manager", healthManager);
+
+            if (healthManager == true)
             {
+            EditorGUILayout.LabelField("Remember to add the 'HealthManager' tag into the tag manager");
                 amountOfHealth = EditorGUILayout.FloatField("Amount of health", amountOfHealth);
             }
 
@@ -70,6 +76,13 @@ public class SimpleAI : EditorWindow
             if (GUILayout.Button("Create AI"))
             {
                 Instantiate(aiObject, new Vector3(0, 0, 0), Quaternion.identity);
+            aiObject.name = "AI";
+
+                createManager = new GameObject();
+                SimpleAI.createManager.name = "HealthManager";
+                HealthManager health = createManager.AddComponent<HealthManager>();
+                health.healthOverride = amountOfHealth;
+                Debug.Log("Health after attachment " + health.healthOverride.ToString());
             }
 
         EditorGUILayout.LabelField("AI Path", EditorStyles.boldLabel);
@@ -105,7 +118,7 @@ public class SimpleAI : EditorWindow
     {
         Debug.Log(amountOfHealth);
 
-        if (wonder == false & chasePlayer == false && playerDection == false && aiHealth == false && attachComponents == false)
+        if (wonder == false & chasePlayer == false && playerDection == false && healthManager == false && attachComponents == false)
         {
             ComponentAlert.Tester();
         }
@@ -135,11 +148,9 @@ public class SimpleAI : EditorWindow
             aiObject.AddComponent<PlayerDetection>();
         }
 
-        if (aiHealth == true && aiObject.GetComponent<Health>() == null)
-        { 
-            Health h = aiObject.AddComponent<Health>();
-            h.health = amountOfHealth;
-            Debug.Log("Health after attachment " + h.health.ToString());
+        if (healthManager == true && aiObject.GetComponent<Health>() == null)
+        {
+            aiObject.AddComponent<Health>(); 
         }
 
         if (aiObject.GetComponent<NavMeshAgent>() == null)
@@ -154,7 +165,7 @@ public class SimpleAI : EditorWindow
 
         if (aiObject.GetComponent<NavMeshHandler>() == null)
         {
-            aiObject.GetComponent<NavMeshHandler>();
+            aiObject.AddComponent<NavMeshHandler>();
         }
     }
 }

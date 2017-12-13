@@ -10,6 +10,7 @@ public class NavMeshHandler : MonoBehaviour
 	void Start ()
     {
         agent = GetComponent<NavMeshAgent>();
+        agent.speed = 5;
 	}
 	
 

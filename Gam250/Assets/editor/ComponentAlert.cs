@@ -33,11 +33,15 @@ public class ComponentAlert : EditorWindow
             SimpleAI.lookAround = EditorGUILayout.Toggle("Look Around", SimpleAI.lookAround);
         }
 
-        SimpleAI.chasePlayer = EditorGUILayout.Toggle("Chase Player", SimpleAI.chasePlayer);
         SimpleAI.playerDection = EditorGUILayout.Toggle("Player Detection", SimpleAI.playerDection);
-        SimpleAI.aiHealth = EditorGUILayout.Toggle("Health", SimpleAI.aiHealth);
+        if(SimpleAI.playerDection == true)
+        {
+            SimpleAI.chasePlayer = EditorGUILayout.Toggle("Chase Player", SimpleAI.chasePlayer);
+        }
 
-        if (SimpleAI.aiHealth == true)
+        SimpleAI.healthManager = EditorGUILayout.Toggle("Health Manager", SimpleAI.healthManager);
+
+        if (SimpleAI.healthManager == true)
         {
             SimpleAI.amountOfHealth = EditorGUILayout.FloatField("Amount of health", SimpleAI.amountOfHealth);
         }
@@ -46,6 +50,14 @@ public class ComponentAlert : EditorWindow
         {
             SimpleAI.attachComponents = true;
             this.Close();
+
+            if(SimpleAI.healthManager == true)
+            {
+                SimpleAI.createManager = new GameObject();
+                SimpleAI.createManager.name = "HealthManager";
+                HealthManager health = SimpleAI.createManager.AddComponent<HealthManager>();
+                health.healthOverride = SimpleAI.amountOfHealth;
+            }
         }
     }
 }

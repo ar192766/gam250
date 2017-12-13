@@ -7,8 +7,8 @@ public class PlayerDetection : MonoBehaviour
 
     public PathManager pathManager;
 
-    public float range;
-    public float angle;
+    public float range = 7;
+    public float angle = 40;
 
     void Start()
     {
@@ -16,9 +16,9 @@ public class PlayerDetection : MonoBehaviour
     }
     void Update()
     {
-        HitEnemies();
+        HitPlayer();
     }
-    void HitEnemies()
+    void HitPlayer()
     {
         Vector3 playerPostion = transform.position;
         Vector3 forward = transform.forward;
