@@ -29,11 +29,14 @@ public class PlayerDetection : MonoBehaviour
         Collider[] cols = Physics.OverlapSphere(playerPostion, range);
         foreach (Collider col in cols)
         {
+            //Gets all colliders in the collider hit box
             if (col && col.gameObject.CompareTag("Player"))
             {
+                //Checking the angle of the Vector3's
                 Vector3 dir = col.transform.position - playerPostion;
                 if (Vector3.Angle(dir, forward) <= angle / 2)
                 {
+                    //Makes the AI stop wondering and chases the player
                     pathManager.isChasing = true;
                     pathManager.isWond = false;
                     Debug.Log("In Angle");

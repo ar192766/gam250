@@ -22,23 +22,26 @@ public class Wonder : MonoBehaviour
         rig = GetComponent<Rigidbody>();
         aiPaths = GameObject.FindGameObjectsWithTag("Path");
 
+        //Int picks a random number between 0 and the array length
         index = Random.Range(0, aiPaths.Length);
         currentPath = aiPaths[index];
 
         rig.useGravity = false;
         lastRandomNumber = index;
-
-        InvokeRepeating("ISAIWalking", 0.0f, 0.3f);
     }
 
 	void Update ()
     {
+        //Checks to see if isWond is true, if so the AI will go to the current path position
         if (pathManager.isWond == true)
         {
             navHandler.agent.destination = currentPath.transform.position;
         }
+
+        IsAIWalking();
 	}
 
+    //Function checks to see if index dose not pick the same number
     void IsAIWalking()
     {
         if (index == lastRandomNumber)
@@ -48,6 +51,7 @@ public class Wonder : MonoBehaviour
         }
     }
 
+    //Changes number when hitting a path
     void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Path")
@@ -57,6 +61,7 @@ public class Wonder : MonoBehaviour
         }
     }
 
+    //picks another number e.g new path to go to
     void RandomDestination()
     {
         if (index == lastRandomNumber)

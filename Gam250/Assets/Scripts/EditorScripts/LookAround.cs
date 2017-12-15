@@ -7,7 +7,7 @@ public class LookAround : MonoBehaviour
     PathManager pathManager;
     NavMeshHandler navHandler;
 
-    public int lookChance = 10;
+    public int lookChance;
     public float timeToLook = 40f;
     
 
@@ -17,14 +17,17 @@ public class LookAround : MonoBehaviour
 
 	void Start ()
     {
+        //Get Components from AI
         navHandler = GetComponent<NavMeshHandler>();
         pathManager = GetComponent<PathManager>();
+        lookChance = 10;
 	}
 	
 	void Update ()
     {
         LookChance();
 
+        //If float = 0, AI goes back to wondering
         if (timeToWonder < 0)
         {
             lookChance = 10;
@@ -35,9 +38,10 @@ public class LookAround : MonoBehaviour
 
     void LookChance()
     {
+        //Checks to see if isChasing is true, if so nothing happens, else the look timer will check to see if the AI can look
         if (pathManager.isChasing == true)
         {
-            Debug.Log("AI is chasing player");
+           
         }
         else
         {
@@ -47,7 +51,7 @@ public class LookAround : MonoBehaviour
                 lookChance = Random.Range(0, 10);
                 timeToLook = 40f;
             }
-
+            //If lookChancce is below 3 then the AI can have a look around for the player
             if (lookChance < 3 && canLook == true)
             {
                 navHandler.agent.speed = 0;

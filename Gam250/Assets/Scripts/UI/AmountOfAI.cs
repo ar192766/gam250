@@ -11,6 +11,7 @@ public class AmountOfAI : MonoBehaviour
 	
 	void Update ()
     {
+        //Gets the amount of AI in the Level and displays it as a UI Text
         ai = GameObject.FindGameObjectsWithTag("AI");
         aiAmount = ai.Length;
         aiAmountText.text = aiAmount.ToString();

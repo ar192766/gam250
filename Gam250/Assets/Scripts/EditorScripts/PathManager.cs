@@ -9,6 +9,7 @@ public class PathManager : MonoBehaviour
 
     void Start()
     {
+        //Sets iswond to true so the AI walks round the level at the begining of the game
         isWond = true;
     }
 

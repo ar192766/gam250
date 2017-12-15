@@ -9,6 +9,7 @@ public class NavMeshHandler : MonoBehaviour
 	
 	void Start ()
     {
+        //Getting NavMeshAgent off of the AI which other scripts use tp refer to
         agent = GetComponent<NavMeshAgent>();
         agent.speed = 5;
 	}

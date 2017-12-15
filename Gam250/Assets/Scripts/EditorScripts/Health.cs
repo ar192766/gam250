@@ -19,7 +19,7 @@ public class Health : MonoBehaviour
     void Update()
     {
         //If health hits 0 then the AI will be destroyed
-        if(health < 0)
+        if (health < 0)
         {
             AIManager.aiIsDead = true;
             Destroy(gameObject);

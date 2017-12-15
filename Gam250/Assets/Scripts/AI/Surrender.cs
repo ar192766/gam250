@@ -11,17 +11,17 @@ public class Surrender : MonoBehaviour
     Health getHealth;
     public int surrenderChance;
     public bool surrenderCheck;
-	
-	void Start ()
+
+    void Start()
     {
         pathManager = GetComponent<PathManager>();
 
         navHandler = GetComponent<NavMeshHandler>();
         getHealth = GetComponent<Health>();
-	}
-	
-	
-	void Update ()
+    }
+
+
+    void Update()
     {
         //Checks if health of the AI is less than 10
         if (getHealth.health < 10 && surrenderCheck == false)
@@ -38,5 +38,5 @@ public class Surrender : MonoBehaviour
                 navHandler.agent.destination = transform.position;
             }
         }
-	}
+    }
 }
