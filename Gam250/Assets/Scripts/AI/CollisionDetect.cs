@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CollisionDetect : MonoBehaviour
 {
+    // Script Does not currently work. could get the AI to move becuase it was kinematic.
+
     NavMeshHandler navHandler;
     Rigidbody rig;
 
@@ -26,10 +28,12 @@ public class CollisionDetect : MonoBehaviour
     {
         RaycastHit hit;
 
+        //Making Vector3 for each 3 directions
         Vector3 forward = transform.forward * radius;
         Vector3 right = transform.right * radius;
         Vector3 left = -transform.right * radius;
 
+        //Drawing the ray for each 3 directions
         Debug.DrawRay(transform.position, forward, Color.red);
         Debug.DrawRay(transform.position, right, Color.red);
         Debug.DrawRay(transform.position, left, Color.red);
@@ -65,6 +69,7 @@ public class CollisionDetect : MonoBehaviour
             }
         }
 
+        //if only the front is blocked a float will pick a random number to determine what direction left or right it will go 
         if(frontBlocked == true)
         {
             pickDirection = Random.Range(1, 2);
@@ -82,6 +87,7 @@ public class CollisionDetect : MonoBehaviour
             navHandler.agent.speed = 3.5f;
         }
 
+        //if front and right are blocked the AI will move left and if front and left is blocked then the AI wil move right
         if(frontBlocked == true && rightBlocked == true)
         {
             TurnLeft();
@@ -92,6 +98,7 @@ public class CollisionDetect : MonoBehaviour
         }
 	}
 
+    //makes AI move right in the game world
     void TurnRight()
     {
         if (frontBlocked == true)
@@ -101,7 +108,7 @@ public class CollisionDetect : MonoBehaviour
             rig.AddForce(transform.right * speed);
         }
     }
-
+    //Makes AI move Left in the game world
     void TurnLeft()
     {
         if (frontBlocked == true)

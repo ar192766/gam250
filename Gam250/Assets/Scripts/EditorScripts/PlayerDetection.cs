@@ -12,12 +12,16 @@ public class PlayerDetection : MonoBehaviour
 
     void Start()
     {
+        //Gets The script for player
         pathManager = GetComponentInParent<PathManager>();
+        InvokeRepeating("HitPlayer", 0.0f, 0.3f);
     }
+
     void Update()
     {
-        HitPlayer();
+       
     }
+
     void HitPlayer()
     {
         Vector3 playerPostion = transform.position;

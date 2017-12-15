@@ -16,6 +16,7 @@ public class Shoot : MonoBehaviour {
     {
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
+            //Spawns bullet at bulletspawn gameobect in game world
             Instantiate(bullet, bulletSpawn.transform.position, transform.rotation);
         }
 

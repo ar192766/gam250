@@ -9,6 +9,7 @@ public class LookAround : MonoBehaviour
 
     public int lookChance = 10;
     public float timeToLook = 40f;
+    
 
     public bool canLook = true;
     public float turnSpeed = 70;

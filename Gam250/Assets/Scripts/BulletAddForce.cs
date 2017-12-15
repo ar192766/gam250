@@ -16,11 +16,13 @@ public class BulletAddForce : MonoBehaviour
 
     private void Update()
     {
+        //Makes the bullet move the direction the player is facing
         rig.AddForce(transform.forward * bulletSpeed);
     }
 
     IEnumerator WaitToDestroy()
     {
+        //Waits 2 seconds  then destroys itself
         yield return new WaitForSeconds(2);
         {
             Destroy(gameObject);

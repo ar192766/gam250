@@ -20,11 +20,13 @@ public class AIManager : MonoBehaviour
 
     void Start ()
     {
+        //Finds and gets component off of HealtManager Gameobject
         healthManager = GameObject.FindGameObjectWithTag("HealthManager").GetComponent<HealthManager>();
     }
 
 	void Update ()
     {
+        //Keeps track of how many AI die
 		if(aiIsDead == true)
         {
             deadAmount += 1;
@@ -33,9 +35,11 @@ public class AIManager : MonoBehaviour
 
         AIadapt();
 	}
-
+    
+    //This Function switches when the dead amount int = 2,4,6 or 8
     void AIadapt()
     {
+        //Inside each case a float randomly picks a number. whatever number it hits will give the AI an upgrade either by health or by Damage
         switch(deadAmount)
         {
             case 2:
@@ -117,6 +121,7 @@ public class AIManager : MonoBehaviour
         }
     }
 
+    //Function Check to see what stage the Heath bonus is to the AI is then gives the AI more health
     void IncreaseHealth()
     {
         if(increaseHealth == 1)
@@ -133,6 +138,7 @@ public class AIManager : MonoBehaviour
         }
     }
 
+    //Function Check to see what stage the damage bonus is to the AI is then give the AI bullet more damage
     void IncreaseDamage()
     {
         if(increaseDamage == 1)

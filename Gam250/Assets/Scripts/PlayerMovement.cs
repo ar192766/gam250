@@ -8,17 +8,9 @@ public class PlayerMovement : MonoBehaviour
 	public float playerHealth = 50;
     public float bulletDamage = 7;
 
-	public float healthDrainSpeed = 0.2f;
-	public float rageHealthDrainSpeed = 0.4f;
 	// speed for the player
 	public float speed;
-	// jump force for player
-	public float jumpForce;
-	// gravity for the player
-	public float gravity;
 
-	// bool for jump checking
-	public bool grounded = false;
 	//Rigibody for player movement
 	Rigidbody rigidbody;
 	// float that will control gravity 
@@ -40,36 +32,19 @@ public class PlayerMovement : MonoBehaviour
 		playerRB = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody>();
 		camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
 		rigidbody = GetComponent<Rigidbody> ();
-		// assigning the yAxis to jumpForce
-		yAxis = jumpForce;
 		// cursor will lock so mouse will not be visible when playing
-		//Screen.lockCursor = true;
+		Screen.lockCursor = true;
 
 	}
 
 	void FixedUpdate ()
     { 
-
-		//Allows the player to see the players health in the game
-
 		// floats that are assigned to X,Y Axis
 		float rotationY = Input.GetAxis ("Mouse Y") * sensitivity;
 		float rotationX = Input.GetAxis ("Mouse X") * sensitivity;
-		//Checks to see if both things are true so that the player is allowed to jump
-		if (Input.GetKeyDown (KeyCode.Space) && grounded == true) 
-		{
-			// Adds force so that the player can jump up and down
-			rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse );
-		} 
-		else
-		{
-			// else yAxis = 0 meaning the player will fall back to the floor
-			yAxis = 0f;
-		}
 
 		yAxis += Physics.gravity.y * Time.fixedDeltaTime;
 
-		//
 		playerMove = new Vector3 (Input.GetAxis ("Horizontal") * speed, rigidbody.velocity.y , Input.GetAxis ("Vertical") * speed);
 		playerMove = transform.TransformDirection (playerMove);
 		rigidbody.velocity = playerMove;
@@ -81,29 +56,6 @@ public class PlayerMovement : MonoBehaviour
 		camera.transform.localEulerAngles = new Vector3(-mr, 0, 0);
 
 
-	}
-
-	void OnTriggerEnter (Collider other)
-	{
-		//If player enters object trigger then grounded is true meaning the player is able to jump
-		if (other.tag == "Object") 
-		{
-			grounded = true;
-		}
-
-        if(other.tag == "AIBullet")
-        {
-            playerHealth -= bulletDamage;
-        }
-	}
-
-	void OnTriggerExit(Collider other)
-	{
-		//IF player is not in object trigger then the player is not able to jump
-		if (other.tag == "Object")
-		{
-			grounded = false;
-		}
 	}
 
     void NoHealth()

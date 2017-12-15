@@ -19,6 +19,7 @@ public class AIShoot : MonoBehaviour
 
     void Update()
     {
+        //Checks PathManager script to see if the ischasing is true if so start shooting
         if(pathManager.isChasing == true)
         {
             Shoot();
@@ -29,12 +30,14 @@ public class AIShoot : MonoBehaviour
     {
         if (canShoot == true)
             {
+                //Spawns AIBullet prefab at the spawn location
                 Instantiate(bullet, bulletSpawn.transform.position, transform.rotation);
                 canShoot = false;
                 StartCoroutine(WaitToShoot());
             }
     }
 
+    //Makes the AI wait 2 seconds before it can shoot again
     IEnumerator WaitToShoot()
     {
         yield return new WaitForSeconds(2);

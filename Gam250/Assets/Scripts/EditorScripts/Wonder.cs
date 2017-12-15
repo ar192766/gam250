@@ -27,6 +27,8 @@ public class Wonder : MonoBehaviour
 
         rig.useGravity = false;
         lastRandomNumber = index;
+
+        InvokeRepeating("ISAIWalking", 0.0f, 0.3f);
     }
 
 	void Update ()
@@ -35,13 +37,16 @@ public class Wonder : MonoBehaviour
         {
             navHandler.agent.destination = currentPath.transform.position;
         }
+	}
 
+    void IsAIWalking()
+    {
         if (index == lastRandomNumber)
         {
             index = Random.Range(0, aiPaths.Length);
             currentPath = aiPaths[index];
         }
-	}
+    }
 
     void OnTriggerEnter(Collider other)
     {

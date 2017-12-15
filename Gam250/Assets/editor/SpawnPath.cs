@@ -12,7 +12,7 @@ public class SpawnPath : MonoBehaviour
         SceneView.onSceneGUIDelegate += OnSceneGooey;
     }
 
-
+    //Currently not working
     static void OnSceneGooey(SceneView sceneView)
     {
        /* Event e = Event.current;

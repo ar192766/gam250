@@ -19,8 +19,10 @@ public class ChasePlayer : MonoBehaviour
 	
 	void Update ()
     {
+        //Check Pathmanager script to see if isChasing is true
         if (pathManager.isChasing == true)
         {
+            //Gets NavmeshAgent from nnavmaeshandler and makes it follow the player
             navHandler.agent.destination = player.transform.position;
         }
 	}

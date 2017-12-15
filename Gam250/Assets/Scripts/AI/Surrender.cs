@@ -23,8 +23,10 @@ public class Surrender : MonoBehaviour
 	
 	void Update ()
     {
+        //Checks if health of the AI is less than 10
         if (getHealth.health < 10 && surrenderCheck == false)
         {
+            //Picks a random number and if that number is below 3 then the AI will stop e.g surrender
             surrenderChance = Random.Range(0, 10);
             surrenderCheck = true;
             if (surrenderChance < 3)
